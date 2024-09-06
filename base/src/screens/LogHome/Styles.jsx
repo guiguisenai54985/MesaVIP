@@ -15,7 +15,6 @@ const Styles = StyleSheet.create({
     color: 'black',
   },
 
-
   buttonStyles: {
     backgroundColor: '#E3CFAF',
     borderWidth: 2,
@@ -37,8 +36,6 @@ const Styles = StyleSheet.create({
     marginHorizontal: 50,
 
   },
-
-
 
 });
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView, ScrollView, View, Image, Alert, TouchableOpacity, FlatList,} from 'react-native'; 
+import { SafeAreaView, ScrollView, View, Image, Alert, TouchableOpacity, FlatList, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { TextInputMask } from 'react-native-masked-text';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,7 +8,7 @@ import { theme } from 'galio-framework';
 // import mainCardIMG from '../../../res/img/MesaVIP/home.png';
 import { ProgressCircle } from 'react-native-svg-charts'
 import { Modal, Portal, PaperProvider } from 'react-native-paper';
-import { Avatar, Button, Card, Text, LeftContent, RightContent, ProgressBar, MD3Colors, TextInput, SegmentedButtons} from 'react-native-paper';
+import { Avatar, Button, Card, Text, LeftContent, RightContent, ProgressBar, MD3Colors, TextInput, SegmentedButtons } from 'react-native-paper';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
 import { IconButton, } from 'react-native-paper';
@@ -19,124 +19,79 @@ import axios from 'axios';
 
 function HomeScreen({ navigation, route }) {
   const { id, nome, sobrenome, email, senha, imagem } = route.params.obj;
-  const sampleNews = [
-    {
-      image: 'https://i.pinimg.com/564x/3f/de/59/3fde59c1d9ae5d1285e4786be81b7152.jpg',
-    },
-    {
-      image: 'https://i.pinimg.com/736x/18/2f/55/182f55abd1b3ab47c85bcb8abaa4c988.jpg',
-    },
-    {
-      image: 'https://i.pinimg.com/564x/3d/46/74/3d467426e5ad3f306e8104b4a7df0cff.jpg',
-    },
-    {
-      image: 'https://i.pinimg.com/564x/1f/0f/ee/1f0fee613c3000d6df53e7e1b52d7a84.jpg',
-    },
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        <Card style={styles.mainCard}>
+          {/* <Card.Cover source={mainCardIMG} style={styles.mainCardIMG} /> */}
+          <Card.Content style={styles.TextMainCardCont}>
+            <Text style={styles.MainCardText1} variant="titleMedium">Olá, seja bem-vindo ao MesaVIP, {nome} {sobrenome}</Text>
+          </Card.Content>
+          <Card.Content style={styles.TextMainCardCont2}>
+          </Card.Content>
+          <Card.Actions>
+          </Card.Actions>
+        </Card>
 
-  ];
-
-  const PaginaHome = ({ navigation }) => {
-    const handlePress = (imageName) => {
-      navigation.navigate('Pagina', { imageName });
-
-    };
-
-    return (
-
-      <View style={styles.container}>
-        <ScrollView>
-
-          <Card style={styles.mainCard}>
-            {/* <Card.Cover source={mainCardIMG} style={styles.mainCardIMG} /> */}
-            <Card.Content style={styles.TextMainCardCont}>
-              <Text style={styles.MainCardText1} variant="titleMedium">Olá, seja bem-vindo ao MesaVIP, {nome} {sobrenome}</Text>
-            </Card.Content>
-            <Card.Content style={styles.TextMainCardCont2}>
-            </Card.Content>
-            <Card.Actions>
-            </Card.Actions>
-          </Card>
-
-          <View style={styles.Title}>
-            <Text style={styles.TitleText}>RESTAURANTES:</Text>
+        <View style={styles.Title}>
+          <Text style={styles.TitleText}>RESTAURANTES:</Text>
+        </View>
+        <Card style={styles.mainCard2}>
+          <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
           </View>
-          {/* inicio do codigo da nery */}
-          <View style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-
-              <FlatList
-                data={sampleNews}
-                horizontal
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                  <View style={styles.card}>
-                    <Image source={{ uri: item.image }} style={styles.cardImage} />
-                  </View>
-                )}
-                showsHorizontalScrollIndicator={false}
-                style={styles.cardList}
-              />
-              <View style={styles.tabela}>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image1')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image1.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image2')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image2.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image3')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image3.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image4')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image4.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image5')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image5.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image6')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image6.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image7')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image7.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image8')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image8.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.roundBackground} onPress={() => handlePress('image9')}>
-                  <Image
-                    source={require('../../../res/img/MesaVIP/image9.png')}
-                    style={styles.logo}
-                  />
-                </TouchableOpacity>
-              </View>
-            </ScrollView>
+        </Card>
+        <Card style={styles.mainCard2}>
+        <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
           </View>
-          {/* fim do codigo da nery */}
-          {/* codigo card noticia */}
-          {/*
+        </Card>
+        <Card style={styles.mainCard2}>
+        <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
+          </View>
+        </Card>
+        <Card style={styles.mainCard2}>
+        <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
+          </View>
+        </Card>
+        <Card style={styles.mainCard2}>
+        <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
+          </View>
+        </Card>
+        <Card style={styles.mainCard2}>
+        <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
+          </View>
+        </Card>
+        <Card style={styles.mainCard2}>
+        <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
+          </View>
+        </Card>
+        <Card style={styles.mainCard2}>
+        <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
+          </View>
+        </Card>
+        <Card style={styles.mainCard2}>
+        <Text style={styles.TitleText2}>{nome}</Text>
+          <View style={styles.item}>
+            <Button style={styles.buttonStyles}color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Reservar</Button>
+          </View>
+        </Card>
+        {/* codigo card noticia */}
+        {/*
         <Card style={styles.newsCard}>
           <Card.Cover style={styles.newsIMG} source={newsimgg3} />
           <Card.Content style={styles.newsTitle}>
@@ -147,11 +102,10 @@ function HomeScreen({ navigation, route }) {
             <Button color='black' mode='outilined' textColor='black' onPress={() => navigation.navigate('Noticias')} >Ver noticias</Button>
           </Card.Actions>
         </Card> */}
-        </ScrollView>
-      </View>
+      </ScrollView>
+    </View>
 
-    );
-  }
+  );
 }
 //treinos
 function WorkoutScreen({ route }) {
